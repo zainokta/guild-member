@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ResetTableAutoincrementTest extends Migration
+class CreatePasswordResetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class ResetTableAutoincrementTest extends Migration
      */
     public function up()
     {
-        $statement = "ALTER TABLE members AUTO_INCREMENT = ". (count(\App\Member::all())+1).";";
-        DB::unprepared($statement);
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
     }
 
     /**
@@ -24,6 +27,6 @@ class ResetTableAutoincrementTest extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('password_resets');
     }
 }

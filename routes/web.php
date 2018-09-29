@@ -15,11 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('member', 'MemberController@index');
-Route::get('member/create', 'MemberController@create');
-Route::get('member/{id}', 'MemberController@show');
-Route::get('member/{id}/edit', 'MemberController@edit');
+Route::group(['prefix' => '/member', 'as' => 'members.'], function() {
+    Route::get('/', 'MemberController@index')->name('index');
+    Route::get('/create', 'MemberController@create')->name('create');
+    Route::get('/{id}', 'MemberController@show')->name('read');
+    Route::get('/{id}/edit', 'MemberController@edit')->name('edit');
+    
+    Route::post('/create', 'MemberController@store')->name('store');
+    Route::patch('/{id}/edit', 'MemberController@update')->name('update');
+    Route::delete('/{id}/delete', 'MemberController@destroy')->name('delete');
+});
 
-Route::post('member/create', 'MemberController@store');
-Route::patch('member/{id}/edit', 'MemberController@update')->name('update');
-Route::delete('member/{id}', 'MemberController@destroy')->name('delete');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
