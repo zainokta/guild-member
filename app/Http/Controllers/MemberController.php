@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(){
         $members = Member::all();
         return view('members.member',['members' => $members]);
