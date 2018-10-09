@@ -8,22 +8,23 @@
             <ul>
             @foreach($errors->all() as $error)
                 <li>{{$error}}</li>
-            @endforeach
+             @endforeach
             </ul>
         @endif
-        <form action="{{ route('members.create') }}" method="post">
+        <form action="{{ route('admins.update', [$member->id]) }}" method="post">
             {{ csrf_field() }}
+            <input type="hidden" name="_method" value="PATCH"/>
             <div class="form-group">
                 <label for="name">Name : </label>
-                <input type="text" name="name" class="form-control" placeholder="Name" value="" required>
+                <input type="text" name="name" class="form-control" placeholder="Name" value="{{$member->name}}" required>
             </div>
             <div class="form-group">
                 <label for="class">Class : </label>
-                <input type="text" name="class" class="form-control" placeholder="Class" value="" required>
+                <input type="text" name="class" class="form-control" placeholder="Class" value="{{$member->class}}" required>
             </div>
             <div class="form-group">
                 <label for="phone">Phone : </label>
-                <input type="text" name="phone" class="form-control" placeholder="Phone" value="" required>
+                <input type="text" name="phone" class="form-control" placeholder="Phone" value="{{$member->phone}}" required>
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </form>

@@ -3,8 +3,8 @@
 @section('content')
 <div class="container">
     <div class="space">
-        <h1 class="text-center">MY GUILD MEMBER</h1>
-        <a class="btn btn-basic" href="/member/create">Insert New Member</a>
+        <h1 class="text-center">OFFICER PANEL</h1>
+        <a class="btn btn-basic" href="/admin/create">Insert New Member</a>
         <table class="table table-bordered table-striped">
             <tr>
                 <th class="text-center align-middle">Name</th>
@@ -25,9 +25,9 @@
                     <td class="text-center align-middle">{{ $member->class }}<br></td>
                     <td class="text-center align-middle">{{ $member->phone }}<br></td>
                     <td class="text-center align-middle"> <a class="btn btn-basic" href="/member/{{$member->id}}">Show Details</a></td>
-                    <td class="text-center align-middle"> <a class="btn btn-basic" href="/member/{{$member->id}}/edit">Edit</a></td>
+                    <td class="text-center align-middle"> <a class="btn btn-basic" href="/admin/{{$member->id}}/edit">Edit</a></td>
                     <td class="text-center align-middle">
-                        <form method="post" action="{{ route ('members.delete', [$member->id]) }}">
+                        <form method="post" action="{{ route ('admins.delete', [$member->id]) }}">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             <button class="btn btn-default" type="submit">Delete</button>

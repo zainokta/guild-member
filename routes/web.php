@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Http\Middleware\GuildRole;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,13 +17,18 @@ Route::get('/', function () {
 
 Route::group(['prefix' => '/member', 'as' => 'members.'], function() {
     Route::get('/', 'MemberController@index')->name('index');
-    Route::get('/create', 'MemberController@create')->name('create')->middleware(GuildRole::class);
     Route::get('/{id}', 'MemberController@show')->name('read');
-    Route::get('/{id}/edit', 'MemberController@edit')->name('edit')->middleware(GuildRole::class);
+});
+
+Route::group(['prefix' => '/admin', 'as' => 'admins.' , 'middleware' => 'role'], function() {
+    Route::get('/', 'AdminController@index')->name('index');
+    Route::get('/create', 'AdminController@create')->name('create');
+    Route::get('/{id}', 'AdminController@show')->name('read');
+    Route::get('/{id}/edit', 'AdminController@edit')->name('edit');
     
-    Route::post('/create', 'MemberController@store')->name('store')->middleware(GuildRole::class);
-    Route::patch('/{id}/edit', 'MemberController@update')->name('update')->middleware( GuildRole::class);
-    Route::delete('/{id}/delete', 'MemberController@destroy')->name('delete')->middleware(GuildRole::class);
+    Route::post('/create', 'AdminController@store')->name('store');
+    Route::patch('/{id}/edit', 'AdminController@update')->name('update');
+    Route::delete('/{id}/delete', 'AdminController@destroy')->name('delete');
 });
 
 Auth::routes();
