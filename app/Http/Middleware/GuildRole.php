@@ -19,6 +19,6 @@ class GuildRole
         if(Auth::check() && Auth::user()->role == "Guild Master"){
             return $next($request);
         }
-        return redirect('home');
+        return redirect('member');
     }
 }
