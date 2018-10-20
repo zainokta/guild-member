@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facade\Storage;
 
 class AdminController extends Controller
 {
@@ -18,22 +19,31 @@ class AdminController extends Controller
     }
 
     public function edit($id){
-        $member = Member::find($id);
+        $member = Member::findOrFail($id);
 
         return view('admin.edit', ['member' => $member]);
     }
 
     public function store(Request $request){
+        $file = $request->file('image');
         $rules = $request->validate([
             'name' => 'required',
             'class' => 'required',
-            'phone' => 'required|numeric'
+            'phone' => 'required|numeric',
+            'image' => 'mimes:jpeg,jpg,png'
         ]);
 
         $member = new Member;
         $member->name = $request->name;
         $member->class = $request->class;
         $member->phone = $request->phone;
+
+        if($request->hasFile('image'))
+        {
+            $filename = $member->name . '-' . $request->file('image')->getClientOriginalName();
+            $member->image_id = $filename;
+            $file->move('uploads', $filename);
+        }
 
         $member->save();
         return redirect('admin');

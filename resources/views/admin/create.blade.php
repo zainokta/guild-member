@@ -11,7 +11,7 @@
             @endforeach
             </ul>
         @endif
-        <form action="{{ route('admins.create') }}" method="post">
+        <form action="{{ route('admins.create') }}" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Name : </label>
@@ -25,7 +25,9 @@
                 <label for="phone">Phone : </label>
                 <input type="text" name="phone" class="form-control" placeholder="Phone" value="" required>
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <input type="file" name="image" id="image">
+            <br><br>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </div>

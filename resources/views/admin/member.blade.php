@@ -30,7 +30,7 @@
                         <form method="post" action="{{ route ('admins.delete', [$member->id]) }}">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
-                            <button class="btn btn-default" type="submit">Delete</button>
+                            <button class="btn btn-primary" type="submit">Delete</button>
                         </form>
                     </td>
                 </tr>

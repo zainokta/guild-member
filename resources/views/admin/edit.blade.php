@@ -26,7 +26,7 @@
                 <label for="phone">Phone : </label>
                 <input type="text" name="phone" class="form-control" placeholder="Phone" value="{{$member->phone}}" required>
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </div>
